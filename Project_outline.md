@@ -17,7 +17,7 @@ A second card can be shown.
 
 2. Server checks the card and hands back the asci grapic
 
-[ PICTURE ]
+    [ PICTURE ]
 
 3. User chooses a second card 
 
@@ -27,4 +27,6 @@ A second card can be shown.
 
 6. repeat till all cards are flipped.
 
+
+## Code
 
