@@ -1,0 +1,26 @@
+[
+    {
+        "key": "ctrl+t",
+        "command": "workbench.action.terminal.focus",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "workbench.action.terminal.clear",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+oem_plus",
+        "command": "editor.action.fontZoomIn",
+    },
+    {
+        "key": "ctrl+shift+oem_minus",
+        "command": "editor.action.fontZoomOut",
+    }
+
+]
