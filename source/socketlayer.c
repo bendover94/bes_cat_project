@@ -1,12 +1,13 @@
-#include  "socketprx.h"
+// source: Rheinwerk Computing: C von A bis Z
+//http://openbook.rheinwerk-verlag.de/c_von_a_bis_z/025_c_netzwerkprogrammierung_006.htm##mja8101c6e0e4cb2e6fd8312114dad30d7
+
+#include "socketprx.h"
+#include "misc.h"
+
+void test_socketlayer();
 
 /* Die Funktion gibt aufgetretene Fehler aus und
  *  * beendet die Anwendung. */
-void error_exit(char *error_message) {
-    fprintf(stderr, "%s: %s\n", error_message, strerror(errno));
-    exit(EXIT_FAILURE);
-}
-
 int create_socket( int af, int type, int protocol ) {
     socket_t sock;
     const int y = 1;
@@ -21,8 +22,8 @@ int create_socket( int af, int type, int protocol ) {
     return sock;
 }
 
-/* Erzeugt die Bindung an die Serveradresse,
- *  * (genauer gesagt an einen bestimmten Port). */
+
+// creates binding to socket 
 void bind_socket(socket_t *sock, unsigned long adress,
         unsigned short port) {
     struct sockaddr_in server;
@@ -34,8 +35,8 @@ void bind_socket(socket_t *sock, unsigned long adress,
         error_exit("Kann das Socket nicht \"binden\"");
 }
 
-/* Teile dem Socket mit, dass Verbindungswünsche
- *  * von Clients entgegengenommen werden. */
+
+// tell socket to accept connections from clients
 void listen_socket( socket_t *sock ) {
     if(listen(*sock, 5) == -1 )
         error_exit("Fehler bei listen");
@@ -44,6 +45,8 @@ void listen_socket( socket_t *sock ) {
 /* Bearbeite die Verbindungswünsche von Clients.
  *  * Der Aufruf von accept() blockiert so lange,
  *   * bis ein Client Verbindung aufnimmt. */
+
+// 
 void accept_socket( socket_t *socket, socket_t *new_socket ){
     struct sockaddr_in client;
     unsigned int len;
@@ -97,45 +100,6 @@ void TCP_recv( socket_t *sock, char *data, size_t size) {
         data[len] = '\0';
     else
         error_exit("Fehler bei recv()");
-}
-
-/* Daten senden via UDP */
-void UDP_send ( socket_t *sock, char *data, size_t size,
-        char *addr, unsigned short port){
-    struct sockaddr_in addr_sento;
-    struct hostent *h;
-    int rc;
-
-    /* IP-Adresse des Servers überprüfen */
-    h = gethostbyname(addr);
-    if (h == NULL)
-        error_exit("Unbekannter Host?");
-
-    addr_sento.sin_family = h->h_addrtype;
-    memcpy ( (char *) &addr_sento.sin_addr.s_addr,
-            h->h_addr_list[0], h->h_length);
-    addr_sento.sin_port = htons (port);
-
-    rc = sendto(*sock, data, size, 0,
-            (struct sockaddr *) &addr_sento,
-            sizeof (addr_sento));
-    if (rc < 0)
-        error_exit("Konnte Daten nicht senden - sendto()");
-}
-
-/* Daten empfangen via UDP */
-void UDP_recv( socket_t *sock, char *data, size_t size){
-    struct sockaddr_in addr_recvfrom;
-    unsigned int len;
-    int n;
-
-    len = sizeof (addr_recvfrom);
-    n = recvfrom ( *sock, data, size, 0,
-            (struct sockaddr *) &addr_recvfrom, &len );
-    if (n < 0) {
-        printf ("Keine Daten empfangen ...\n");
-        return;
-    }
 }
 
 /* Socket schließen */
