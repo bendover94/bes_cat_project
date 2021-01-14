@@ -13,6 +13,7 @@ void write_setup(card *card)
     if (fp == NULL)
     {
         error_exit("ERROR: opening file");
+        printf("file: setup.txt");
     }
     else
     {
@@ -29,14 +30,16 @@ void write_setup(card *card)
 void write_client_picture_file(char *buffer, card *card, int index)
 {
     FILE *fp;
-    char path[] = CLIENT_FILE_PATH;
+    char path[] = "../client_data/"; 
     strcat(path, card[index].fileName);
     fp = fopen(path, "w");
     if (fp == NULL)
     {
-        error_exit_file(card[index].fileName);
+        error_exit("ERROR: could not open file");
+        printf("file: %s", card[index].fileName);
     }
-    fprintf(fp, buffer);
+    fprintf(fp, "%s", buffer); 
+
     fclose(fp);
 }
 
@@ -44,13 +47,14 @@ void write_client_picture_file(char *buffer, card *card, int index)
 void read_picture_file(char *buffer, card card)
 {
     FILE *fp;
-    char path[] = CLIENT_FILE_PATH;
+    char path[] = "../client_data/"; 
     strcat(path, card.fileName);
 
     fp = fopen(path, "r");
     if (fp == NULL)
     {
         error_exit("ERROR: opening picture file");
+        printf("file: %s", card.fileName);
     }
     else
     {
@@ -69,6 +73,7 @@ int check_filesize(card card)
     fp = fopen(card.fileName, "r");
     if (fp == NULL)
     {
+        printf("file: %s", card.fileName);
         error_exit("ERROR: opening picture file");
     }
     else
@@ -76,7 +81,7 @@ int check_filesize(card card)
         printf("opened picture file \n");
     }
     fseek(fp, 0, SEEK_END);
-    fileSize = ftelll(fp);
+    fileSize = ftell(fp);
 
     fclose(fp);
     return fileSize;
@@ -85,17 +90,23 @@ int check_filesize(card card)
 // reads the picture file on the server 
 void read_file_from_server(char *sendBuffer, char index)
 {
-    char path[] = SERVER_FILE_PATH;
+    char path[] = "../server_data/";
     char fileName[] = "file0.txt";
+
+    printf("entering readfilefromserver\n");
+    printf("index = %c\n", index);
     fileName[4] = index;
-    strcpy(path, fileName);
+    strcat(path, fileName);
     long length;
 
-    FILE *fp = fopen(fileName, "r");
+    printf("filepath = %s\n", path);
+
+    FILE *fp = fopen(path, "r");
     // Check if there was an error.
     if (fp == NULL)
     {
-        error_exit_file(path);
+        error_exit("ERROR: file could not open file");
+        
     }
     // Get the file length
     fseek(fp, 0, SEEK_END);

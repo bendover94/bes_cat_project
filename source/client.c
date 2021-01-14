@@ -16,8 +16,8 @@ int check_input(int index, card *card);
 
 int main (int argc, char *argv[]) {
     socket_t sock;
-    char *sendBuffer = (char*) malloc (BUF);
-    char *recvBuffer = (char*) malloc (BUF);
+    char *sendBuffer = (char*)malloc(BUF);
+    char *recvBuffer = (char*)malloc(BUF);
 
     if( argc < 2 ){
         printf("Usage: %s ServerAdresse\n", *argv);
@@ -36,12 +36,10 @@ int main (int argc, char *argv[]) {
     do {
         recvBuffer[0] = '\0';
         fgets (sendBuffer, BUF, stdin);
-        
-        
-        
-        TCP_recv (&sock, recvBuffer, BUF-1);
-
         TCP_send (&sock, sendBuffer, strlen (sendBuffer));
+        printf("send message: %s", sendBuffer);
+        TCP_recv (&sock, recvBuffer, BUF-1);
+        printf("received message: %s", recvBuffer);
 
     } while (strcmp (sendBuffer, "quit\n") != 0);
     close_socket (&sock);

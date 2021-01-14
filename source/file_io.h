@@ -7,11 +7,11 @@
 #include "misc.h"
 
 
-static const char* CLIENT_FILE_PATH = "./client_data";
-static const char* SERVER_FILE_PATH = "./server_data";
-static const char* SETUP_FILE = "setup.txt";
-static const char* CARD_FORMAT_IN = "%d, %d, %s";
-static const char* CARD_FORMAT_OUT = "%d, %d, %s";
+//static const char* CLIENT_FILE_PATH = "../client_data/";
+//static const char* SERVER_FILE_PATH = "../server_data/";
+//static const char* SETUP_FILE = "../client_data/setup.txt";
+//static const char* CARD_FORMAT_IN = "%d, %d, %s";
+//static const char* CARD_FORMAT_OUT = "%d, %d, %s";
 
 
 void read_setup_file (card *card);

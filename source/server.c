@@ -5,13 +5,12 @@
 #include <string.h>
 #include "socketprx.h"
 #include "misc.h"
+#include "file_io.h"
 #define BUF 1024
-
-
 
 int main (void) {
     socket_t sock1, sock2;
-    int addrlen;
+    //int addrlen;
     char *sendBuffer = (char*) malloc (BUF);
     char *recvBuffer = (char*) malloc (BUF);
     char index;
@@ -20,24 +19,25 @@ int main (void) {
     atexit(cleanup);
     bind_socket( &sock1, INADDR_ANY, 15000 );
     listen_socket (&sock1);
-    addrlen = sizeof (struct sockaddr_in);
+    //addrlen = sizeof (struct sockaddr_in);
 
     while (1) {
         accept_socket( &sock1, &sock2 );
         do {
             recvBuffer[0] = '\0';
 
-            printf("waiting for message"); 
-            TCP_recv (&sock2, sendBuffer, BUF-1);
-            
+            printf("waiting for message\n"); 
+            TCP_recv (&sock2, recvBuffer, BUF-1);
             if(recvBuffer[0] >= '0' && recvBuffer[0] <= '9')
             {
                 index = recvBuffer[0];
             } 
+            printf("received message: %s", recvBuffer);
+
             read_file_from_server(sendBuffer, index);
 
             TCP_send (&sock2, sendBuffer, strlen (sendBuffer));
-            printf ("Nachricht empfangen: %s\n", sendBuffer);
+            printf ("Nachricht gesendet: %s\n", sendBuffer);
         } while (strcmp (recvBuffer, "quit\n") != 0);
         close_socket (&sock2);
     }

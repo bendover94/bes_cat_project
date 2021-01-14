@@ -16,6 +16,8 @@
 #include <unistd.h>
 #include "misc.h"
 
+
+
 /* ein eigener primitver Datentyp für den Socket-Deskriptor */
 #define socket_t int
 /* Funktionsprototypen */
@@ -30,5 +32,6 @@ void TCP_send( socket_t *sock, char *data, size_t size);
 void TCP_recv( socket_t *sock, char *data, size_t size);
 void close_socket( socket_t *sock );
 void cleanup(void);
+
 
 #endif

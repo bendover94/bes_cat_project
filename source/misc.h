@@ -2,9 +2,9 @@
 #define MISC_H_
 
 void error_exit(char *error_message); 
-void error_exit_file(char *fileName)
+//void error_exit_file(char *fileName);
 
-typedef struct card
+typedef struct card_
 {
     int pos;
     int state;

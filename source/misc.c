@@ -13,8 +13,10 @@ void error_exit(char *error_message) {
 
 // not used 
 // error function in respect to files 
+/*
 void error_exit_file(char *fileName)
 {
     fprintf(stderr, "error: opening file %s: %s: %s\n", fileName, strerror(errno));
     exit(EXIT_FAILURE);
 }
+*/
