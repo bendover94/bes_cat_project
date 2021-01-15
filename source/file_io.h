@@ -14,11 +14,12 @@
 //static const char* CARD_FORMAT_OUT = "%d, %d, %s";
 
 
+int check_filesize(card card);
 void read_setup_file (card *card);
 void read_picturefile(char *buffer);
-int check_filesize(card card);
 void read_file_from_server(char *sendBuffer, char index);
 void write_setup(card *card);
+void write_client_picture_file(char *buffer, card *card, int index);
 
 
 #endif

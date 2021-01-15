@@ -33,10 +33,14 @@ void write_client_picture_file(char *buffer, card *card, int index)
     char path[] = "../client_data/"; 
     strcat(path, card[index].fileName);
     fp = fopen(path, "w");
+
+    printf("test\n");
+
+    printf("%s\n", buffer);
     if (fp == NULL)
     {
-        error_exit("ERROR: could not open file");
         printf("file: %s", card[index].fileName);
+        error_exit("ERROR: could not open file");
     }
     fprintf(fp, "%s", buffer); 
 

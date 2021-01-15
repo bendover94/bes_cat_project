@@ -39,6 +39,10 @@ int main (int argc, char *argv[]) {
         TCP_send (&sock, sendBuffer, strlen (sendBuffer));
         printf("send message: %s", sendBuffer);
         TCP_recv (&sock, recvBuffer, BUF-1);
+        
+        int index = (int)*sendBuffer;
+        write_client_picture_file(recvBuffer, cards, index);
+
         printf("received message: %s", recvBuffer);
 
     } while (strcmp (sendBuffer, "quit\n") != 0);
