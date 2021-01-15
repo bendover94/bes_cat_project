@@ -45,6 +45,26 @@
             ],
             "preLaunchTask": "gcc LINUX build active file",
             "miDebuggerPath": "/usr/bin/gdb"
-        }
+        },
+        {
+            "name": "debug client",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/source/client",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/path/to/gdb",
+            "setupCommands": [
+              {
+                "description": "Enable pretty-printing for gdb and add better child debugging",
+                "text": "-enable-pretty-printing -gdb-set detach-on-fork off",
+                "ignoreFailures": true
+              }
+            ]
+          }
     ]
 }
