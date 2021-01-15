@@ -11,7 +11,7 @@
       "problemMatcher": {
         "owner": "gcc",
         "fileLocation": [
-          "relative",
+          "autoDetect",
           "${workspaceFolder}"
         ],
         "pattern": {
