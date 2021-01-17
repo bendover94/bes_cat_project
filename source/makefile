@@ -24,5 +24,8 @@ misc.o: misc.c misc.h
 file_io.o: file_io.c file_io.h misc.h
 	$(CC) $(CFLAGS) -c file_io.c
 
+display.o: display.c display.h 
+	$(CC) $(CFLAGS) -c display.c
+
 clean:
 	rm -rf *.o server client 

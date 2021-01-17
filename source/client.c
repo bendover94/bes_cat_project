@@ -6,13 +6,9 @@
 #include "socketprx.h"
 #include "file_io.h"
 #include "misc.h"
+#include "display.h"
 
 #define BUF 1024
-
-void randomise_struct(card *card, int n);
-void swap(int *a, int *b);
-void display_board(card *cards);
-int check_input(int index, card *card);
 
 int main (int argc, char *argv[]) {
     socket_t sock;
@@ -48,57 +44,4 @@ int main (int argc, char *argv[]) {
     } while (strcmp (sendBuffer, "quit\n") != 0);
     close_socket (&sock);
     return EXIT_SUCCESS;
-}
-
-// randomises the member pos of struct card. 
-void randomise_struct(card *card, int n)
-{
-    srand(time(NULL));
-    for (int i = n - 1; i > 0; i--)
-    {
-        int j = rand() % (i + 1);
-        swap(&(card[i].pos), &(card[j].pos));
-    }
-}
-
-// swaps two charcters
-void swap(int *a, int *b)
-{
-    int tmp = *a; 
-    *a = *b; 
-    *b = tmp;
-}
-
-// Dosplays the positions of all cards on the screen 
-void display_board(card *cards)
-{
-    printf("THIS IS A SAMPLE BOARD");
-    printf("+---+---+---+---+---+\n");
-    printf("|");
-    for (int i = 0; i < 5; i++)
-    {
-        printf(" %d |", cards[i].pos);
-    }
-    printf("\n");
-    printf("+---+---+---+---+---+\n");
-    for (int i = 4; i < 10; i++)
-    {
-        printf(" %d |", cards[i].pos);
-    }    
-    printf("\n");
-    printf("+---+---+---+---+---+\n");
-}
-
-int check_input(int index, card *card)
-{
-    int check = 0; 
-    for (int i = 0; i < 10; i++)
-    {
-        if (card[i].pos == index && card[i].state == 1)
-        {
-            check = 1; 
-            break; 
-        }        
-    }
-    return check;
 }
